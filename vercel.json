@@ -1,5 +1,6 @@
 {
-  "buildCommand": "echo 'No build needed - Rust project'",
-  "outputDirectory": ".",
-  "devCommand": "cargo run"
+  "buildCommand": "wasm-pack build --target web --release --out-dir pkg",
+  "outputDirectory": "pkg",
+  "devCommand": "cargo run",
+  "installCommand": "cargo install wasm-pack"
 }

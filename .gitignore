@@ -1,1 +1,21 @@
-/target
+/target/
+/pkg/
+/dist/
+
+# Web build artifacts
+bomberman_2d.wasm
+bomberman_2d.js
+
+# Lock file
+# Cargo.lock
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,9 @@
+{
+  "name": "bomberman-2d",
+  "version": "0.1.0",
+  "description": "Bomberman 2D game built with Bevy",
+  "type": "module",
+  "scripts": {
+    "build": "wasm-pack build --target web --release --out-dir pkg"
+  }
+}

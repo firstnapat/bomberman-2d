@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Bomberman 2D</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #1a1a26;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        canvas {
+            display: block;
+        }
+        #loading {
+            position: absolute;
+            color: white;
+            font-family: monospace;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading">Loading Bomberman 2D...</div>
+    <script type="module">
+        import init from './bomberman_2d.js';
+        async function run() {
+            document.getElementById('loading').remove();
+            await init();
+        }
+        run();
+    </script>
+</body>
+</html>
