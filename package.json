@@ -4,11 +4,12 @@
   "description": "Bomberman 2D game built with Bevy",
   "type": "module",
   "scripts": {
-    "build": "wasm-pack build --target web --release --out-dir pkg && cp index.html pkg/",
-    "dev": "wasm-pack build --target web --dev --out-dir pkg && cp index.html pkg/ && node server.js",
-    "dev:watch": "cargo watch -x 'wasm-pack build --target web --dev --out-dir pkg' -s 'cp index.html pkg/'"
+    "build": "npx wasm-pack build --target web --release --out-dir pkg && cp index.html pkg/",
+    "dev": "npx wasm-pack build --target web --dev --out-dir pkg && cp index.html pkg/ && node server.js",
+    "dev:watch": "cargo watch -x 'npx wasm-pack build --target web --dev --out-dir pkg' -s 'cp index.html pkg/'"
   },
   "devDependencies": {
-    "serve": "^14.2.0"
+    "serve": "^14.2.0",
+    "wasm-pack": "^0.13.1"
   }
 }
