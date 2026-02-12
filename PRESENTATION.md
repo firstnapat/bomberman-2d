@@ -11,7 +11,15 @@
 
 ---
 
-## Slide 2: What is Bomberman 2D?
+## Slide 2: The Game
+
+![Bomberman 2D Gameplay](Screenshot-game.png)
+
+*Clean visuals, smooth gameplay, instant action*
+
+---
+
+## Slide 3: What is Bomberman 2D?
 
 **Bomberman 2D** is a modern web-based recreation of the classic arcade action game.
 
@@ -22,7 +30,7 @@
 
 ---
 
-## Slide 3: The Concept
+## Slide 4: The Concept
 
 **Place bombs. Destroy boxes. Outsmart the explosions.**
 
@@ -35,7 +43,7 @@ You control a character in a grid-based arena filled with:
 
 ---
 
-## Slide 4: How It Works
+## Slide 5: How It Works
 
 ### Core Mechanics
 
@@ -57,7 +65,7 @@ You control a character in a grid-based arena filled with:
 
 ---
 
-## Slide 5: Explosion Mechanics
+## Slide 6: Explosion Mechanics
 
 ```
     ↑
@@ -77,7 +85,7 @@ You control a character in a grid-based arena filled with:
 
 ---
 
-## Slide 6: Features
+## Slide 7: Features
 
 | Feature | Description |
 |---------|-------------|
@@ -90,7 +98,7 @@ You control a character in a grid-based arena filled with:
 
 ---
 
-## Slide 7: How to Play
+## Slide 8: How to Play
 
 ### Controls
 
@@ -110,7 +118,7 @@ You control a character in a grid-based arena filled with:
 
 ---
 
-## Slide 8: Technical Achievement
+## Slide 9: Technical Achievement
 
 ### Built with Modern Rust Tech Stack
 
@@ -133,7 +141,7 @@ You control a character in a grid-based arena filled with:
 
 ---
 
-## Slide 9: Why It's Special
+## Slide 10: Why It's Special
 
 ### 🚀 Performance
 - Runs at 60 FPS in your browser
@@ -148,7 +156,7 @@ You control a character in a grid-based arena filled with:
 
 ---
 
-## Slide 10: Level Design
+## Slide 11: Level Design
 
 ### Strategic Map Layout
 
@@ -162,7 +170,7 @@ Every box destroyed = new possibilities!
 
 ---
 
-## Slide 11: Development Journey
+## Slide 12: Development Journey
 
 ```
 Idea → Design → Code → Playtest → Deploy
@@ -178,11 +186,11 @@ Rust   Bevy   ECS    Iteration  Vercel
 
 ---
 
-## Slide 12: Play Now!
+## Slide 13: Play Now!
 
 ### 🎮 Start Playing
 
-**Visit:** [Your Game URL]
+**Visit:** https://bomberman-2d.vercel.app/
 
 **Or Run Locally:**
 ```bash
@@ -194,7 +202,7 @@ npm run dev
 
 ---
 
-## Slide 13: The Code
+## Slide 14: The Code
 
 ### Open Source & Learning Resource
 
@@ -214,7 +222,7 @@ Want to see how it's built?
 
 ---
 
-## Slide 14: What's Next?
+## Slide 15: What's Next?
 
 ### Roadmap
 
@@ -227,7 +235,7 @@ Want to see how it's built?
 
 ---
 
-## Slide 15: Thank You!
+## Slide 16: Thank You!
 
 # 💣 BOMBERMAN 2D
 
