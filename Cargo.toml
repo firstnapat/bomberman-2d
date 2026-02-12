@@ -4,11 +4,30 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-bevy = { version = "0.15", default-features = false, features = ["bevy_winit", "bevy_render", "bevy_sprite", "bevy_webgl2"] }
+bevy = { version = "0.15", default-features = false, features = [
+    "bevy_winit",
+    "bevy_render",
+    "bevy_sprite",
+    "bevy_asset",
+    "webgl2",
+    "png",
+] }
+wasm-bindgen = "0.2"
+console_error_panic_hook = "0.1"
 
-[dependencies.web-sys]
+[dependencies.getrandom]
 version = "0.3"
+features = ["wasm_js"]
 
 [lib]
 crate-type = ["cdylib", "rlib"]
+
+[[bin]]
+name = "bomberman-2d"
+path = "src/main.rs"
+
+[profile.release]
+opt-level = "z"     # Optimize for size
+lto = true          # Enable link-time optimization
+codegen-units = 1   # Reduce codegen units for better optimization
 

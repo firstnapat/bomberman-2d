@@ -1,39 +1,212 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bomberman 2D</title>
     <style>
-        body {
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+        body {
             background: #1a1a26;
             overflow: hidden;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
             height: 100vh;
+            font-family: 'Courier New', monospace;
         }
+        #game-title {
+            color: #6a9fff;
+            font-size: 32px;
+            font-weight: bold;
+            text-shadow: 0 0 10px #6a9fff88;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+        #game-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        /* ALL canvases should be visible */
         canvas {
-            display: block;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            border: 2px solid #3a3a4a;
+            border-radius: 4px;
+            outline: none;
+        }
+        canvas:focus {
+            border-color: #6a9fff;
+            box-shadow: 0 0 10px #6a9fff88;
         }
         #loading {
-            position: absolute;
             color: white;
-            font-family: monospace;
             font-size: 24px;
+            text-align: center;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #3a3a4a;
+            border-top: 5px solid #6a9fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        #start-screen {
+            text-align: center;
+            color: white;
+        }
+        #start-button {
+            margin-top: 30px;
+            padding: 15px 40px;
+            font-size: 20px;
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(180deg, #6a9fff 0%, #4a7fdf 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 4px 15px #6a9fff44;
+            transition: all 0.2s ease;
+        }
+        #start-button:hover {
+            background: linear-gradient(180deg, #7aafff 0%, #5a8fef 100%);
+            box-shadow: 0 6px 20px #6a9fff66;
+            transform: translateY(-2px);
+        }
+        #start-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 10px #6a9fff44;
+        }
+        #controls {
+            color: #8a8a9a;
+            font-size: 14px;
+            margin-top: 15px;
+            text-align: center;
+        }
+        #controls kbd {
+            background: #3a3a4a;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin: 0 2px;
         }
     </style>
 </head>
 <body>
-    <div id="loading">Loading Bomberman 2D...</div>
+    <div id="game-title">💣 BOMBERMAN 2D 💣</div>
+
+    <div id="game-container">
+        <div id="start-screen">
+            <p style="color: #8a8a9a; font-size: 16px;">Classic bombing action game</p>
+            <button id="start-button">START GAME</button>
+        </div>
+
+        <div id="loading" style="display: none;">
+            <div class="spinner"></div>
+            <div>Loading Bomberman 2D...</div>
+        </div>
+
+        <div id="controls" style="display: none;">
+            <p>Move: <kbd>WASD</kbd> or <kbd>Arrow Keys</kbd> &nbsp;|&nbsp; Place Bomb: <kbd>Space</kbd></p>
+        </div>
+    </div>
+
     <script type="module">
-        import init from './bomberman_2d.js';
-        async function run() {
-            document.getElementById('loading').remove();
-            await init();
-        }
-        run();
+        const startScreen = document.getElementById('start-screen');
+        const startButton = document.getElementById('start-button');
+        const loading = document.getElementById('loading');
+        const controls = document.getElementById('controls');
+        const gameContainer = document.getElementById('game-container');
+
+        // Global click handler - always refocus game canvas
+        // Use capture mode and window to catch ALL clicks
+        window.addEventListener('click', () => {
+            const gameCanvas = document.querySelector('canvas');
+            if (gameCanvas) {
+                gameCanvas.focus();
+            }
+        }, true);  // Use capture phase
+
+        // Watch for new canvas elements being added
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                mutation.addedNodes.forEach((node) => {
+                    if (node.nodeName === 'CANVAS') {
+                        console.log('New canvas detected!', node);
+                        node.style.display = 'block';
+                        node.style.visibility = 'visible';
+                    }
+                });
+            });
+        });
+
+        // Start observing the game container
+        observer.observe(gameContainer, { childList: true, subtree: true });
+        observer.observe(document.body, { childList: true, subtree: true });
+
+        startButton.addEventListener('click', async () => {
+            startScreen.style.display = 'none';
+            loading.style.display = 'block';
+
+            try {
+                console.log('Loading WASM module...');
+                // Import the WASM module and initialize it
+                const initWasm = await import('./bomberman_2d.js');
+                console.log('WASM module loaded, initializing...');
+
+                if (typeof initWasm.default !== 'function') {
+                    throw new Error('WASM init function not found. Available exports: ' + Object.keys(initWasm).join(', '));
+                }
+
+                await initWasm.default();  // Initialize WASM first
+                console.log('WASM initialized, starting game...');
+
+                if (typeof initWasm.start !== 'function') {
+                    throw new Error('WASM start function not found');
+                }
+
+                initWasm.start();  // Then start the game
+                console.log('Game started!');
+
+                setTimeout(() => {
+                    loading.style.display = 'none';
+                    controls.style.display = 'block';
+
+                    // Find all canvases and make sure they're visible
+                    const canvases = document.querySelectorAll('canvas');
+                    console.log('Total canvases found:', canvases.length);
+                    canvases.forEach((canvas, i) => {
+                        console.log(`Canvas ${i}:`, canvas.width, 'x', canvas.height);
+                        canvas.style.display = 'block';
+                        canvas.style.visibility = 'visible';
+                        // Set tabindex so canvas can receive focus and key events
+                        canvas.setAttribute('tabindex', '0');
+                        // Auto-focus the canvas so keyboard works immediately
+                        canvas.focus();
+                    });
+                }, 1000);
+            } catch (err) {
+                console.error('Failed to load game:', err);
+                console.error('Error details:', err.message, err.stack);
+                loading.innerHTML =
+                    '';
+            }
+        });
     </script>
 </body>
 </html>

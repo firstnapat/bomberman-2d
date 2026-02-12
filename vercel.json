@@ -1,6 +1,13 @@
 {
-  "buildCommand": "wasm-pack build --target web --release --out-dir pkg",
+  "buildCommand": "npm run build",
   "outputDirectory": "pkg",
-  "devCommand": "cargo run",
-  "installCommand": "cargo install wasm-pack"
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "framework": null,
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }
