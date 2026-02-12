@@ -4,7 +4,7 @@
   "description": "Bomberman 2D game built with Bevy",
   "type": "module",
   "scripts": {
-    "build": "npx wasm-pack build --target web --release --out-dir pkg && cp index.html pkg/",
+    "build": "rustup target add wasm32-unknown-unknown && npx wasm-pack build --target web --release --out-dir pkg && cp index.html pkg/",
     "dev": "npx wasm-pack build --target web --dev --out-dir pkg && cp index.html pkg/ && node server.js",
     "dev:watch": "cargo watch -x 'npx wasm-pack build --target web --dev --out-dir pkg' -s 'cp index.html pkg/'"
   },
